@@ -1,0 +1,53 @@
+class Main {
+    public static boolean isSafe(int[][] nums, int row, int col){
+        int N = nums.length;
+        for(int i=0;i<N;i++){
+            if(nums[row][i]==1) return false;
+        }
+        int i,j;
+        for (i = row, j = col; i >= 0 && j >= 0; i--, j--){
+            if(nums[i][j]==1) return false;
+        }
+        for(i = row ,j = col ;i<N && j>=0 ;i++ , j--){
+            if(nums[i][j]==1) return false;
+        }
+        return true;
+    }
+    public static boolean placeQueen(int[][] nums, int col){
+        int N = nums.length;
+        if(col>=N) return true;
+        for(int i=0;i<N;i++){
+            if(isSafe(nums,i,col)){
+                nums[i][col] = 1;
+                if(placeQueen(nums,col+1)==true) {
+                    return true;
+                }
+                nums[i][col] = 0;
+            }
+        }
+        return false;
+    }
+    public static void printSolution(int board[][])
+    {
+        int N = board.length;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++)
+                System.out.print(" " + board[i][j]
+                                 + " ");
+            System.out.println();
+        }
+    }
+    public static void main(String[] args) {
+        int board[][] = { { 0, 0, 0, 0 , 0 },
+                          { 0, 0, 0, 0, 0},
+                          { 0, 0, 0, 0,0 },
+                          { 0, 0, 0, 0,0 },
+                           { 0, 0, 0, 0,0 }};
+
+        if (placeQueen(board, 0) == false) {
+            System.out.print("Solution does not exist\n");
+        }
+
+        printSolution(board);
+    }
+}
