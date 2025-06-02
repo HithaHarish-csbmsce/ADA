@@ -1,0 +1,21 @@
+// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+
+class Main {
+    public static int recursiveKnap(int[] weights, int[] val, int W, int n){
+        if(n==0 || W==0) return 0;
+        int pick = 0;
+        if(weights[n-1]<=W){
+            pick = val[n-1] + recursiveKnap(weights,val,W-weights[n-1],n-1);
+        }
+        int notpick = recursiveKnap(weights,val,W,n-1);
+        return Math.max(pick,notpick);
+    }
+    public static void main(String[] args) {
+        int[] weights = {4,5,6};
+        int[] val = {1,2,3};
+        int W = 3;
+        int n = 3;
+        System.out.println(recursiveKnap(weights,val,W,n));
+    }
+}
