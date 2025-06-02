@@ -1,0 +1,37 @@
+// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+import java.util.*;
+class Main {
+    static class Item{
+        int val, weight;
+        Item(int val ,int weight){
+            this.val = val;
+            this.weight = weight;
+        }
+    }
+    public static double fracKnap(int[] val, int[] weight, int capacity){
+        Item[] items = new Item[val.length];
+        for(int i=0;i<val.length;i++){
+            items[i] = new Item(val[i],weight[i]);
+        }
+        Arrays.sort(items , (a,b) -> Double.compare(
+            (double) b.val/b.weight,(double) a.val/a.weight));
+        double  price = 0.0;
+        for(Item item : items){
+            if(item.weight<=capacity){
+               capacity -= item.weight;
+               price += item.val;
+            }
+            else{
+                price += (double) item.val/item.weight * capacity;
+                break;
+            }
+        }
+        return price;
+    }
+    public static void main(String[] args) {
+        int[] val = {60,100,120};
+        int[] weight = {10,20,30};
+        System.out.println(fracKnap(val,weight,50));
+    }
+}
