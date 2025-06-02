@@ -1,0 +1,33 @@
+// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+
+class Main {
+    public static void sort(int[] nums, int low, int high){
+        if(low<high){
+            int start = low;
+            int end = high;
+            int mid = start+(end-start)/2;
+            int pivot = nums [mid];
+            while(start<=end){
+                while(nums[start]<pivot) start++;
+                while(nums[end]>pivot) end--;
+                if(start<=end){
+                    int temp = nums[end];
+                    nums[end] = nums[start];
+                    nums[start] = temp;
+                    start++;
+                    end--;
+                }
+            }
+            sort(nums,low,end);
+            sort(nums,start,high);
+        }
+    }
+    public static void main(String[] args) {
+        int[] nums = {1,6,2,5,9,3,5,2,5,2};
+        sort(nums,0,nums.length-1);
+        for(int num: nums) System.out.println(num);
+    }
+}
+
+
